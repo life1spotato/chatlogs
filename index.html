@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOOP VOD 채팅 로그 분석기</title>
+    <link rel="stylesheet" href="style.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <div id="mainLayout">
+        <div id="leftColumn">
+            <div id="inputArea">
+                <label for="vodNoInput">VOD Title No:</label>
+                <input type="text" id="vodNoInput" placeholder="VOD 번호 입력">
+                <button id="fetchDataBtn">데이터 가져오기</button>
+                <p id="statusMessage" style="color: blue;"></p>
+            </div>
+
+            <div id="playerArea">
+                <h2>VOD 플레이어</h2>
+                <div id="vodChatToggleContainer">
+                    <button id="toggleVodChatBtn" class="toggle-button">VOD 채팅 표시</button>
+                </div>
+                <div id="player-aspect-ratio-container">
+                    <iframe id="vodPlayerFrame" frameborder="0" allowfullscreen></iframe>
+                </div>
+            </div>
+
+            <div id="savedItemsArea">
+                <h2>저장된 항목</h2>
+                <textarea id="savedItemsOutput" placeholder="추가된 채팅 또는 분석 항목이 여기에 표시됩니다." readonly></textarea>
+                <button id="clearSavedItemsBtn">모두 지우기</button>
+            </div>
+        </div>
+
+        <div id="rightColumn">
+            <div id="tabs">
+                <button id="chatTabBtn" class="tab-button active" data-target-panel="chatArea">채팅</button>
+                <button id="analysisTabBtn" class="tab-button" data-target-panel="analysisContent">분석</button>
+            </div>
+
+            <div id="filterControls">
+                 <button id="toggleEmoticonFilterBtn" class="toggle-button">이모티콘만 있는 채팅 숨기기</button>
+                 <button id="toggleUserIdBtn" class="toggle-button">아이디 표시</button> </div>
+
+            <div id="chatArea" class="content-panel active">
+                 <div id="chatOutput">
+                    </div>
+            </div>
+
+            <div id="analysisContent" class="content-panel">
+                 <h2>채팅 밀집 구간 분석 결과</h2>
+                 <div id="analysisCriteria">
+                     <h3>분석 기준 설정</h3>
+                     <div>
+                         <label for="minChatsInput">구간 내 최소 채팅 수:</label>
+                         <input type="number" id="minChatsInput" value="3" min="1">
+                     </div>
+                     <div>
+                         <label for="minDurationInput">구간 최소 시간 (초):</label>
+                         <input type="number" id="minDurationInput" value="10" min="0">
+                     </div>
+                     <div>
+                         <label for="rateMultiplierInput">평균 속도 배율 (%):</label>
+                         <input type="number" id="rateMultiplierInput" value="150" min="10" step="10">
+                     </div>
+                     <p id="currentCriteriaInfo"></p>
+                 </div>
+
+                 <div id="analysis-info"></div>
+                 <br>
+                 <table id="analysisTable">
+                     <thead>
+                         <tr>
+                             <th>추가</th>
+                             <th>시작 시간</th>
+                             <th>종료 시간</th>
+                             <th>구간 시간</th>
+                             <th>채팅 수</th>
+                             <th>초당 채팅</th>
+                         </tr>
+                     </thead>
+                     <tbody></tbody>
+                 </table>
+                 <div id="analysis-placeholder">
+                     채팅 데이터를 먼저 가져와 주세요.
+                 </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.min.js"></script>
+</body>
+</html>
